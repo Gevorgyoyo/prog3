@@ -132,7 +132,6 @@ module.exports = class Golem extends lc{
 
     eat() {
         var xotakerakereat = this.chooseCell(3)
-
         if (xotakerakereat) {
             for (var i in xotakerakereat) {
                 var emptyX = xotakerakereat[i][0];
