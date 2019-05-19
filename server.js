@@ -1,7 +1,7 @@
 //! Setting global arrays  --  START
 matrix = [];
 grassArr = [];
-xotakerArr = [];x
+xotakerArr = [];
 xotakerakerArr = [];
 tower = [];
 golemArr = [];
@@ -44,15 +44,15 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(10, 5, 3,2,2,5);
+matrixGenerator(10, 5, 3, 2, 2, 5);
 //! Creating MATRIX -- END
 
 
 
 //! Requiring modules  --  START
 var Grass = require("./xot.js");
-var GrassEater = require("./xotaker.js");
-var GrassEaterEater = require("./xotakeraker.js");
+var xotaker = require("./xotaker.js");
+var xotakeraker = require("./xotakeraker.js");
 var tower = require("./tower.js");
 var golem = require("./golem.js");
 //! Requiring modules  --  END
@@ -77,28 +77,23 @@ function creatingObjects() {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
-				var gr = new Grass(x, y)
-				grassArr.push(gr)
-			}
-			else if (matrix[y][x] == 2) {
-				var xt = new Xotaker(x, y)
-				xotakerArr.push(xt)
-			}
+                grassArr.push(new Grass(x, y));
+            }
+            else if (matrix[y][x] == 2) {
+                xotakerArr.push(new Xotaker(x, y));
+            }
 
-			else if (matrix[y][x] == 3) {
-				var xtt = new Xotakeraker(x, y)
-				xotakerakerArr.push(xtt)
-			}
+            else if (matrix[y][x] == 3) {
+                xotakerakerArr.push(new Xotakeraker(x, y));
+            }
 
-			else if (matrix[y][x] == 4) {
-				var t = new Tower(x, y)
-				tower.push(t)
-			}
+            else if (matrix[y][x] == 4) {
+                tower.push(new Tower(x, y));
+            }
 
-			else if (matrix[y][x] == 5) {
-				var g = new Golem(x, y)
-				golemArr.push(g)
-			}
+            else if (matrix[y][x] == 5) {
+                golemArr.push(new Golem(x, y));
+            }
         }
     }
 }
@@ -119,29 +114,29 @@ function game() {
             xotakerArr[i].mult()
             xotakerArr[i].die()
         }
-    
+
     }
-    if(xotakerakerArr[0]!==undefined){
+    if (xotakerakerArr[0] !== undefined) {
         for (var i in xotakerakerArr) {
             xotakerakerArr[i].eat()
             xotakerakerArr[i].move()
             xotakerakerArr[i].mult()
             xotakerakerArr[i].die()
         }
-    
+
     }
-    if(tower[0]!==undefined){
+    if (tower[0] !== undefined) {
         for (var i in tower) {
             tower[i].eat();
             tower[i].spawn();
         }
-    
+
     }
-    if(golemArr[0]!==undefined){
+    if (golemArr[0] !== undefined) {
         for (var i in golemArr) {
             golemArr[i].eat();
         }
-    
+
     }
 
     //! Object to send

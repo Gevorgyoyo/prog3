@@ -1,4 +1,4 @@
-var LiveForm = require("./lc");
+var lc = require("./lc");
 var random = require("./random");
 
 
