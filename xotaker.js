@@ -1,0 +1,83 @@
+var LiveForm = require("./lc");
+var random = require("./random");
+
+
+module.exports = class Xotaker extends lc{
+    constructor(x, y) {
+        super(x,y)
+        this.energy = 9;
+    }
+
+    getNewDirections() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ]
+    }
+
+    chooseCell(character) {
+        this.getNewCoordinates();
+        return super.chooseCell(character);
+    } 
+
+    mult() {
+        var newdir = random(this.chooseCell(0))
+        if (newdir && this.energy > 15) {
+            var newX = newdir[0]
+            var newY = newdir[1]
+            matrix[newY][newX] = 2
+            var xt = new Xotaker(newX, newY)
+            xotakerArr.push(xt)
+            this.energy /= 2
+        }
+    }
+
+    move() {
+        var newdir = random(this.chooseCell(0))
+        this.energy--;
+        if (newdir) {
+            var newX = newdir[0]
+            var newY = newdir[1]
+            matrix[newY][newX] = 2
+            matrix[this.y][this.x] = 0
+            this.x = newX
+            this.y = newY
+        }
+    }
+
+    eat() {
+        var food = random(this.chooseCell(1))
+        if (food) {
+            var newX = food[0]
+            var newY = food[1]
+            matrix[newY][newX] = 2
+            matrix[this.y][this.x] = 0
+            for (var i in grassArr) {
+                if (grassArr[i].x == newX && grassArr[i].y == newY) {
+                    grassArr.splice(i, 1)
+                }
+            }
+            this.x = newX
+            this.y = newY
+            this.energy += 3
+        }
+    }
+
+    die() {
+        if (this.energy <= 0) {
+
+            matrix[this.y][this.x] = 0
+            for (var i in xotakerArr) {
+                if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
+                    xotakerArr.splice(i, 1)
+                }
+            }
+        }
+    }
+}

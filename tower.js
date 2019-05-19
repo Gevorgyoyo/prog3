@@ -1,7 +1,10 @@
-class Tower {
+var LiveForm = require("./lc");
+var random = require("./random");
+
+
+module.exports = class Tower extends lc{
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x,y)
         this.sources = 15;
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -64,20 +67,10 @@ class Tower {
 
     chooseCell(character) {
         this.getNewDirections()
-        var found = []
-        for (var i in this.directions) {
-            var x = this.directions[i][0]
-            var y = this.directions[i][1]
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i])
-                }
-            }
-
-        }
-        return found;
+        return super.chooseCell(character)
 
     }
+    
     eat() {
         var grasseat = this.chooseCell(1)
         if (grasseat && this.sources < 22) {

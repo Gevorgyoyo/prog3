@@ -1,4 +1,8 @@
-class Golem extends Lc{
+var LiveForm = require("./lc");
+var random = require("./random");
+
+
+module.exports = class Golem extends lc{
     constructor(x, y) {
         super(x,y)
         this.directions = [
