@@ -1,4 +1,6 @@
 //! Setting global arrays  --  START
+seasontime=0
+
 matrix = [];
 grassArr = [];
 xotakerArr = [];
@@ -44,17 +46,17 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(10, 5, 3, 2, 2, 5);
+matrixGenerator(20, 35, 15, 12, 6, 4);
 //! Creating MATRIX -- END
 
 
 
 //! Requiring modules  --  START
 var Grass = require("./xot.js");
-var xotaker = require("./xotaker.js");
-var xotakeraker = require("./xotakeraker.js");
-var tower = require("./tower.js");
-var golem = require("./golem.js");
+var Xotaker = require("./xotaker.js");
+var Xotakeraker = require("./xotakeraker.js");
+var Tower = require("./tower.js");
+var Golem = require("./golem.js");
 //! Requiring modules  --  END
 
 
@@ -78,7 +80,7 @@ function creatingObjects() {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y));
-            }
+               }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
             }
@@ -99,29 +101,28 @@ function creatingObjects() {
 }
 creatingObjects();
 
+    //! Object to send
+    sendData = {
+        matrix: matrix,
+       season:"winter"
+    }
 
 
 function game() {
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
-            grassArr[i].mul();
+            grassArr[i].mult();
         }
     }
     if (xotakerArr[0] !== undefined) {
         for (var i in xotakerArr) {
             xotakerArr[i].eat()
-            xotakerArr[i].move()
-            xotakerArr[i].mult()
-            xotakerArr[i].die()
         }
 
     }
     if (xotakerakerArr[0] !== undefined) {
         for (var i in xotakerakerArr) {
             xotakerakerArr[i].eat()
-            xotakerakerArr[i].move()
-            xotakerakerArr[i].mult()
-            xotakerakerArr[i].die()
         }
 
     }
@@ -135,16 +136,22 @@ function game() {
     if (golemArr[0] !== undefined) {
         for (var i in golemArr) {
             golemArr[i].eat();
-        }
+        }}
+seasontime++
 
-    }
+    
 
-    //! Object to send
-    let sendData = {
-        matrix: matrix
-    }
+if(seasontime<=10){
+    sendData.season="summer"
+}
+else if(seasontime<=20){
+    sendData.season="winter"
+}
+else{
+    seasontime=0
+}
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }
 
-setInterval(game, 1000)
+setInterval(game, 100)

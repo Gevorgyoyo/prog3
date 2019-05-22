@@ -10,7 +10,10 @@ socket.on("data", drawCreatures);
 	frameRate(5);
 	function drawCreatures(data) {
         //! after getting data pass it to matrix variable
-        matrix = data.matrix;
+		matrix = data.matrix;
+
+		season=data.season
+		
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color
@@ -21,7 +24,8 @@ socket.on("data", drawCreatures);
         for (var y = 0; y < matrix.length; y++) {
 			for (var x = 0; x < matrix[y].length; x++) {
 				if (matrix[y][x] == 1) {
-					fill("green");
+					if(season=="summer"){fill("green");}
+					else{fill("white")}
 				}
 				else if (matrix[y][x] == 2) {
 					fill("yellow");
@@ -39,10 +43,6 @@ socket.on("data", drawCreatures);
 					fill("#acacac");
 				}
 				rect(x * side, y * side, side, side)
-	
-				fill("white")
-				text(x + " " + y, x * side + side / 2, y * side + side / 2)
-	
 	
 			}
 		}

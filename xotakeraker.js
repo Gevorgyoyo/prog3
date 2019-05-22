@@ -54,22 +54,32 @@ module.exports = class Xotakeraker extends lc{
     }
 
     eat() {
-        var food = random(this.chooseCell(2))
-        if (food) {
-            var newX = food[0]
-            var newY = food[1]
-            matrix[newY][newX] = 3
-            matrix[this.y][this.x] = 0
+        let emptyCells = this.chooseCell(2);
+        let newCell = random(emptyCells);
 
-            for (var i in xotakerArr) {
-                if (xotakerArr[i].x == newX && xotakerArr[i].y == newY) {
-                    xotakerArr.splice(i, 1)
+        if (newCell) {
+
+            this.energy++;
+            let x = newCell[0];
+            let y = newCell[1];
+
+            matrix[y][x] = 3;
+            matrix[this.y][this.x] = 0;
+
+            for (let i in grassArr) {
+                if (grassArr[i].x == x && grassArr[i].y == y) {
+                    grassArr.splice(i, 1)
                 }
             }
+            this.x = x;
+            this.y = y;
 
-            this.x = newX
-            this.y = newY
-            this.energy += 4
+            if (this.energy >= 13) {
+                this.mult();
+            }
+        }
+        else {
+            this.move()
         }
     }
 

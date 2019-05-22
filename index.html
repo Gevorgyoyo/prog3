@@ -1,88 +1,67 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Game Of Life</title>
     <meta charset="utf8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        #legend {position: absolute;top: 0;right: 0;width: 800px;} .legend-color {width: 30px;height: 30px;} td {border: 1px solid black; font-size: 14px; padding-left: 5px;}
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        div {
+            display: inline-block;
+        }
+
+        h1 {
+            padding: 20px;
+            text-align: center;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif !important;
+        }
     </style>
+   
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
-    <script src="xot.js"></script>
-    <script src="script.js"></script>
-    <script src="xotaker.js"></script>
-    <script src="xotakeraker.js"></script>
-    <script src="tower.js"></script>
-    <script src="golem.js"></script>
-    <script src="lc.js"></script>
-    <h3 style="width:500px;color:purple;position:absolute;top:500px;left:800px">Գևորգ Բաբաջանյան<br>Ծրագրավորում 2
-    </h3>
-    
-
-
-<table id="legend" style="float:right">
-        <tr>
-            <td class="legend-color">Գույն</td>
-            <td>Անվանում</td>
-            <td>Շարժվում է</td>
-            <td>Ուտում է</td>
-            <td>Բազմանում է</td>
-            <td>Սատկում է</td>
-        </tr>
-
-        <tr>
-            <td class="legend-color" style="background-color:gray"></td>
-            <td>Դատարկ վանդակներ</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="legend-color" style="background-color:green"></td>
-            <td>Խոտ</td>
-            <td>Մոտակա 8 վանդակներում</td>
-            <td></td>
-            <td>Մոտակա 8 վանդակներում, 4 տակտը մեկ</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="legend-color" style="background-color:yellow"></td>
-            <td>Խոտակեր</td>
-            <td>Մոտակա 8 վանդակներում, էներգիան քչանում է 1֊ով</td>
-            <td>Խոտերին, մոտակա 8 վանդակներում, շարժվելիս էներգիան ավելանում է 1֊ով</td>
-            <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 10֊ից ավել է</td>
-            <td>Սատկում է, երբ էներգիան փոքր է 0֊ից</td>
-        </tr>
-        <tr>
-            <td class="legend-color" style="background-color:black"></td>
-            <td>Խոտակերակեր</td>
-            <td>Մոտակա 8 վանդակներում, էներգիան քչանում է 2֊ով</td>
-            <td>Խոտակերներին, մոտակա 8 վանդակներում, շարժվելիս էներգիան ավելանում է 2֊ով</td>
-            <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 15֊ից ավել է</td>
-            <td>Սատկում է, երբ էներգիան փոքր է 0֊ից</td>
-        </tr>
-        
-        <tr>
-            <td class="legend-color" style="background-color:magenta"></td>
-            <td>Աշտարակ</td>
-            <td></td>
-            <td>Մոտակա 24 վանդակներում գտնվող բոլոր Խոտերին, ռեսուռսները ամեն մի խոտից ավելանում են 1֊ով</td>
-            <td>Մոտակա 24 վանդակներում ստեղծում է կամ խոտակեր կամ Գոլեմ, երբ ռեսուրսները 20֊ից ավել են</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="legend-color" style="background-color:gray"></td>
-            <td>Գոլեմ</td>
-            <td></td>
-            <td>Մոտակա 48 վանդակներում գտնվող բոլոր Խոտակերակերներին</td>
-            <td></td>
-            <td></td>
-        </tr>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <h1>Ծրագրավորում III Երևան</h1>
+            </tr>
+            <tr>
+                <h1>Անուն Ազգանուն</h1>
+            </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Գույն</th>
+                <th scope="col">Նկարագրություն</th>
+                <th scope="col">Ծնվել է</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td scope="row" style="background-color:green;"></td>
+                <td>Կանաչը խոտն է, որը բազմանում է N ցիկլը մեկ,մահանում է երբ նրան ուտում է խոտակերը, կամ այրում է
+                    կրակը, կամ նրան կոխկրտում է գիշատիչը</td>
+                <td id="grassCount"></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td scope="row" style="background-color:orange;"></td>
+                <td>Դեղինը խոտակերն է, որը բազմանում է N հատ խոտ ուտելուց հետո և մահանում է N հատ չուտելուց հետո, կամ
+                    երբ նրան ուտում է գիշատիչը, կամ երբ նրան այրում է կրակը:</td>
+                <td id="grassEaterCount"></td>
+            </tr>
+        </tbody>
     </table>
-  
-    </body>
+    <script src="p5.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
 </html>

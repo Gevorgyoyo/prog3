@@ -1,6 +1,8 @@
 var lc = require("./lc");
 var random = require("./random");
-
+var Golem=require("./golem")
+var Xotaker=require("./xotaker")
+var Xotakeraker=require("./xotakeraker")
 
 module.exports = class Tower extends lc{
     constructor(x, y) {
@@ -94,7 +96,6 @@ module.exports = class Tower extends lc{
         if (empty && this.sources >= 20 ) {
             var newX = empty[0]
             var newY = empty[1]
-
             var gol = new Golem(newX, newY)
             var xotak = new Xotaker(newX, newY)
             var xtt = new Xotakeraker(newX, newY)
