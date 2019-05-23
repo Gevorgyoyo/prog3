@@ -51,6 +51,7 @@ module.exports = class Xotaker extends lc {
             matrix[this.y][this.x] = 0;
 
             for (let i in grassArr) {
+                grassCount--
                 if (grassArr[i].x == x && grassArr[i].y == y) {
                     grassArr.splice(i, 1)
                   
@@ -95,7 +96,6 @@ module.exports = class Xotaker extends lc {
     }
     die() {
         matrix[this.y][this.x] = 0;
-
         for (let i in xotakerArr) {
             if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
                 xotakerArr.splice(i, 1)

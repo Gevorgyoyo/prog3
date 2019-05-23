@@ -1,8 +1,8 @@
 //! Setting global arrays  --  START
-seasontime=0
-
+seasontime = 0
 matrix = [];
 grassArr = [];
+grassCount = 0
 xotakerArr = [];
 xotakerakerArr = [];
 tower = [];
@@ -46,7 +46,7 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 35, 15, 12, 6, 4);
+matrixGenerator(20, 35, 15, 12, 16, 14);
 //! Creating MATRIX -- END
 
 
@@ -80,7 +80,8 @@ function creatingObjects() {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y));
-               }
+                grassCount++
+            }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
             }
@@ -101,11 +102,12 @@ function creatingObjects() {
 }
 creatingObjects();
 
-    //! Object to send
-    sendData = {
-        matrix: matrix,
-       season:"winter"
-    }
+//! Object to send
+sendData = {
+    matrix: matrix,
+    season: "winter"
+    grassCount:grassCount
+}
 
 
 function game() {
@@ -128,28 +130,25 @@ function game() {
     }
     if (tower[0] !== undefined) {
         for (var i in tower) {
-            tower[i].eat();
-            tower[i].spawn();
+            tower[i].live();
         }
 
     }
     if (golemArr[0] !== undefined) {
         for (var i in golemArr) {
-            golemArr[i].eat();
-        }}
-seasontime++
-
-    
-
-if(seasontime<=10){
-    sendData.season="summer"
-}
-else if(seasontime<=20){
-    sendData.season="winter"
-}
-else{
-    seasontime=0
-}
+            golemArr[i].live();
+        }
+    }
+    seasontime++
+    if (seasontime <= 10) {
+        sendData.season = "summer"
+    }
+    else if (seasontime <= 20) {
+        sendData.season = "winter"
+    }
+    else {
+        seasontime = 0
+    }
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }

@@ -5,6 +5,7 @@ var random = require("./random");
 module.exports = class Golem extends lc{
     constructor(x, y) {
         super(x,y)
+        this.eaten=0
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -118,8 +119,23 @@ module.exports = class Golem extends lc{
         return super.chooseCell(character)
 
     }
-
+    move() {
+        
+        let emptyCells = this.chooseCell(0);
+        let newCell = random(emptyCells);
+        if (newCell) {
+            this.eaten--
+            let x = newCell[0];
+            let y = newCell[1];
+            matrix[y][x] = 5;
+            matrix[this.y][this.x] = 0;
+            this.y = y;
+            this.x = x;
+        }
+    }
+   
     eat() {
+        this.eaten+=3
         var xotakerakereat = this.chooseCell(3)
         if (xotakerakereat) {
             for (var i in xotakerakereat) {
@@ -131,6 +147,21 @@ module.exports = class Golem extends lc{
                         xotakerakerArr.splice(u, 1)
                     }
                 }
+
+            }
+        }
+    } 
+    live(){
+       
+        if(sendData.season=="summer"){
+            this.eat()
+        }
+        else{
+            if(this.eaten<500){
+                this.move()
+                this.eat()
+            }
+            else{
 
             }
         }

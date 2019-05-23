@@ -113,4 +113,23 @@ module.exports = class Tower extends lc{
             this.sources -= 20
         }
     }
+    destroy(){
+        if(sendData.season=="winter" && this.sources<200){
+            var chance=[1,0,0,0,0,0,0,0,0,0]
+            var yourchance=random(chance)
+            if(yourchance==1){
+                matrix[this.y][this.x] = 0;
+            for (let i in xotakerArr) {
+                if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
+                    xotakerArr.splice(i, 1)
+                }
+            } 
+            }
+        }
+    }
+    live(){
+        this.eat()
+        this.spawn()
+        this.destroy()
+    }
 }

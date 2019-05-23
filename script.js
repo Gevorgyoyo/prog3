@@ -11,9 +11,8 @@ socket.on("data", drawCreatures);
 	function drawCreatures(data) {
         //! after getting data pass it to matrix variable
 		matrix = data.matrix;
-
 		season=data.season
-		
+		grassCount.innerText=data.grassCount
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color
