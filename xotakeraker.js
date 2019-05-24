@@ -66,9 +66,9 @@ module.exports = class Xotakeraker extends lc{
             matrix[y][x] = 3;
             matrix[this.y][this.x] = 0;
 
-            for (let i in grassArr) {
-                if (grassArr[i].x == x && grassArr[i].y == y) {
-                    grassArr.splice(i, 1)
+            for (let i in xotakerArr) {
+                if (xotakerArr[i].x == x && xotakerArr[i].y == y) {
+                    xotakerArr.splice(i, 1)
                 }
             }
             this.x = x;

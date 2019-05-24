@@ -1,12 +1,16 @@
 //! Setting global arrays  --  START
+//!Season counter
 seasontime = 0
+//! main Arrays
 matrix = [];
 grassArr = [];
-grassCount = 0
 xotakerArr = [];
 xotakerakerArr = [];
 tower = [];
 golemArr = [];
+//!statistics
+grassCount = 0
+
 //! Setting global arrays  -- END
 
 
@@ -84,6 +88,7 @@ function creatingObjects() {
             }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
+            
             }
 
             else if (matrix[y][x] == 3) {
@@ -105,7 +110,7 @@ creatingObjects();
 //! Object to send
 sendData = {
     matrix: matrix,
-    season: "winter"
+    season: "winter",
     grassCount:grassCount
 }
 
