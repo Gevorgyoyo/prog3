@@ -3,16 +3,25 @@ var socket=io();
 var side = 35;
 var matrix=[]
 //! Getting DOM objects (HTML elements)
-let grassCount = document.getElementById('grassCount');
+let grassCounting = document.getElementById('grassCounting');
 let grassEaterCount = document.getElementById('grassEaterCount');
+let grassEaterEaterCount = document.getElementById('grassEaterEaterCount');
+let towerCount = document.getElementById('towerCount');
+let golemCount = document.getElementById('golemCount');
 //! adding socket listener on "data" <-- name, after that fire 'drawCreatures' function 
 socket.on("data", drawCreatures);
-	frameRate(5);
+	
 	function drawCreatures(data) {
-        //! after getting data pass it to matrix variable
+        //! after getting data pass it to matrix,season variables
 		matrix = data.matrix;
 		season=data.season
-		grassCount.innerText=data.grassCount
+		//!writing character number in canvas at the moment in td tags
+		grassCounting.innerText=data.grassCounter
+		grassEaterCount.innerText=data.grassEaterCounter
+		grassEaterEaterCount.innerText=data.grassEaterEaterCounter
+		towerCount.innerText=data.towerCounter
+		golemCount.innerText=data.golemCounter
+		
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color

@@ -31,6 +31,7 @@ module.exports = class Xotakeraker extends lc{
     mult() {
         var empty = random(this.chooseCell(0))
         if (empty && this.energy > 40) {
+          
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 3
@@ -69,6 +70,7 @@ module.exports = class Xotakeraker extends lc{
             for (let i in xotakerArr) {
                 if (xotakerArr[i].x == x && xotakerArr[i].y == y) {
                     xotakerArr.splice(i, 1)
+                    
                 }
             }
             this.x = x;
@@ -89,6 +91,7 @@ module.exports = class Xotakeraker extends lc{
             for (var i in xotakerakerArr) {
                 if (xotakerakerArr[i].x == this.x && xotakerakerArr[i].y == this.y) {
                     xotakerakerArr.splice(i, 1)
+                    
                 }
             }
         }

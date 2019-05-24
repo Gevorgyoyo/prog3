@@ -29,6 +29,7 @@ module.exports = class Xotaker extends lc {
         let newCell = random(emptyCells);
 
         if (newCell) {
+            
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 2;
@@ -51,10 +52,11 @@ module.exports = class Xotaker extends lc {
             matrix[this.y][this.x] = 0;
 
             for (let i in grassArr) {
-                grassCount--
+               
                 if (grassArr[i].x == x && grassArr[i].y == y) {
                     grassArr.splice(i, 1)
-                  
+                 
+                
                 }
             }
             this.x = x;
@@ -99,6 +101,7 @@ module.exports = class Xotaker extends lc {
         for (let i in xotakerArr) {
             if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
                 xotakerArr.splice(i, 1)
+                
             }
         }
     }

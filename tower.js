@@ -83,34 +83,39 @@ module.exports = class Tower extends lc {
                 for (var u in grassArr) {
                     if (grassArr[u].x == emptyX && grassArr[u].y == emptyY) {
                         grassArr.splice(u, 1);
-                        grassCount--;
+                        
+                        this.sources++
                     }
                 }
-                this.sources++
             }
         }
     }
 
     spawn() {
         var empty = random(this.chooseCell(0))
-
         if (empty && this.sources >= 20) {
             var newX = empty[0]
             var newY = empty[1]
-            var gol = new Golem(newX, newY)
-            var xotak = new Xotaker(newX, newY)
-            var xtt = new Xotakeraker(newX, newY)
-            var arr = [gol, xotak, xtt]
+            var arr = [1, 2, 3]
             var mob = random(arr)
-            if (mob == gol) {
+            if (mob == 1) {
+                var gol = new Golem(newX, newY)
                 matrix[newY][newX] = 5
                 golemArr.push(gol)
+             
             }
-            else if (mob = xotak) {
+            else if (mob = 2) {
+                var xotak = new Xotaker(newX, newY)
                 matrix[newY][newX] = 2
-                xotakerArr.push(xotak)
+                xotakerArr  .push(xotak)
+               
             }
-
+            else{
+                var xtt = new Xotakeraker(newX, newY)
+                matrix[newY][newX] = 3
+                xotakerakerArr.push(xtt)
+                
+            }
             this.sources -= 20
         }
     }
@@ -120,9 +125,10 @@ module.exports = class Tower extends lc {
             var yourchance = random(chance)
             if (yourchance == 1) {
                 matrix[this.y][this.x] = 0;
-                for (let i in xotakerArr) {
-                    if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
-                        xotakerArr.splice(i, 1)
+                
+                for (let i in tower) {
+                    if (tower[i].x == this.x && tower[i].y == this.y) {
+                        tower.splice(i, 1)
                     }
                 }
             }
