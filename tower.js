@@ -102,19 +102,19 @@ module.exports = class Tower extends lc {
                 var gol = new Golem(newX, newY)
                 matrix[newY][newX] = 5
                 golemArr.push(gol)
-             
+                golemCount++             
             }
             else if (mob = 2) {
                 var xotak = new Xotaker(newX, newY)
                 matrix[newY][newX] = 2
-                xotakerArr  .push(xotak)
-               
+                xotakerArr.push(xotak)
+               grassEaterCount++
             }
             else{
                 var xtt = new Xotakeraker(newX, newY)
                 matrix[newY][newX] = 3
                 xotakerakerArr.push(xtt)
-                
+                grassEaterEaterCount++
             }
             this.sources -= 20
         }

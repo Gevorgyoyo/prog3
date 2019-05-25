@@ -31,12 +31,12 @@ module.exports = class Xotakeraker extends lc{
     mult() {
         var empty = random(this.chooseCell(0))
         if (empty && this.energy > 40) {
-          
-            var newX = empty[0]
-            var newY = empty[1]
-            matrix[newY][newX] = 3
-            var xxt = new Xotakeraker(newX, newY)
-            xotakerakerArr.push(xxt)
+          grassEaterEaterCount++;
+            var newX = empty[0];
+            var newY = empty[1];
+            matrix[newY][newX] = 3;
+            var xxt = new Xotakeraker(newX, newY);
+            xotakerakerArr.push(xxt);
         }
     }
 

@@ -87,43 +87,43 @@ function creatingObjects() {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y));
-               grassCount++
+                grassCount++
             }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
-               
+                grassEaterCount++
             }
             else if (matrix[y][x] == 3) {
                 xotakerakerArr.push(new Xotakeraker(x, y));
-             
+                grassEaterEaterCount++
             }
             else if (matrix[y][x] == 4) {
                 tower.push(new Tower(x, y));
-               
+                towerCount++
             }
             else if (matrix[y][x] == 5) {
                 golemArr.push(new Golem(x, y));
-                
+                golemCount++
             }
         }
     }
 }
 creatingObjects();
 
-//! Object to send
-sendData = {
-    matrix: matrix,
-    season: "winter",
-    grassCounter: grassCount,
-    grassEaterCounter:grassEaterCount,
-    grassEaterEaterCounter:grassEaterEaterCount,
-    towerCounter:towerCount,
-    golemCounter:golemCount
-}
-
+//!Game function
 
 function game() {
-    console.log(grassCount)
+    //! Object to send
+    sendData = {
+        matrix: matrix,
+        season: "winter",
+        grassCounter: grassCount,
+        grassEaterCounter: grassEaterCount,
+        grassEaterEaterCounter: grassEaterEaterCount,
+        towerCounter: towerCount,
+        golemCounter: golemCount
+    }
+    console.log(grassEaterCount)
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mult();

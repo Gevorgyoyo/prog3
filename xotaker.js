@@ -27,9 +27,8 @@ module.exports = class Xotaker extends lc {
     mult() {
         let emptyCells = this.chooseCell(0);
         let newCell = random(emptyCells);
-
         if (newCell) {
-            
+            grassEaterCount++;
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 2;
@@ -41,9 +40,7 @@ module.exports = class Xotaker extends lc {
     eat() {
         let emptyCells = this.chooseCell(1);
         let newCell = random(emptyCells);
-
         if (newCell) {
-
             this.life++;
             let x = newCell[0];
             let y = newCell[1];
@@ -52,7 +49,6 @@ module.exports = class Xotaker extends lc {
             matrix[this.y][this.x] = 0;
 
             for (let i in grassArr) {
-               
                 if (grassArr[i].x == x && grassArr[i].y == y) {
                     grassArr.splice(i, 1)
                  

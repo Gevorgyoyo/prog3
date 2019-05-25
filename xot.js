@@ -27,7 +27,7 @@ module.exports = class Grass extends lc{
     mult() {
         var newdir= random(this.chooseCell(0))
         this.multiply++
-        grassCount++
+        
         if (newdir) {
             if(this.multiply>5 && sendData.season=="summer"){
             var newX = newdir[0]
@@ -35,6 +35,7 @@ module.exports = class Grass extends lc{
             matrix[newY][newX] = 1
             var newGr = new Grass(newX, newY)
             grassArr.push(newGr)
+            grassCount++
             }
             else if(this.multiply>25 && sendData.season=="winter"){
                 var newX = newdir[0]
@@ -42,6 +43,7 @@ module.exports = class Grass extends lc{
                 matrix[newY][newX] = 1
                 var newGr = new Grass(newX, newY)
                 grassArr.push(newGr)
+                grassCount++
             }
         }
     }
