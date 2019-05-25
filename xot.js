@@ -25,7 +25,7 @@ module.exports = class Grass extends lc{
     } 
 
     mult() {
-        var newdir= random(this.chooseCell(0))
+        var newdir = random(this.chooseCell(0))
         this.multiply++
         
         if (newdir) {

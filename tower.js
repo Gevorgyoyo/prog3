@@ -120,7 +120,7 @@ module.exports = class Tower extends lc {
         }
     }
     destroy() {
-        if (sendData.season == "winter" && this.sources < 200) {
+        if (sendData.season == "winter" && this.sources < 125) {
             var chance = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             var yourchance = random(chance)
             if (yourchance == 1) {

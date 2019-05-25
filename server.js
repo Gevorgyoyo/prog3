@@ -14,6 +14,7 @@ grassEaterCount = 0
 grassEaterEaterCount = 0
 towerCount = 0
 golemCount = 0
+abc=0
 //! Setting global arrays  -- END
 
 
@@ -28,7 +29,7 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         }
     }
     for (let i = 0; i < grass; i++) {
-        let customX = Math.floor(random(matrixSize)); // 0 - 39
+        let customX = Math.floor(random(matrixSize)); 
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 1;
     }
@@ -53,7 +54,7 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 35, 15, 12, 16, 14);
+matrixGenerator(20, 100, 100, 70, 20, 20);
 //! Creating MATRIX -- END
 
 
@@ -88,6 +89,7 @@ function creatingObjects() {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y));
                 grassCount++
+                abc++
             }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
@@ -110,8 +112,8 @@ function creatingObjects() {
 }
 creatingObjects();
 
-//!Game function
 
+//!Game function
 function game() {
     //! Object to send
     sendData = {
@@ -123,7 +125,22 @@ function game() {
         towerCounter: towerCount,
         golemCounter: golemCount
     }
-    console.log(grassEaterCount)
+
+console.log(abc)
+    //!Season---START
+    seasontime++
+    if (seasontime <= 10) {
+        sendData.season = "summer"
+    }
+    else if (seasontime <= 20) {
+        sendData.season = "winter"
+    }
+    else {
+        seasontime = 0
+    }
+    //!Season---END
+
+    
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mult();
@@ -152,16 +169,7 @@ function game() {
             golemArr[i].live();
         }
     }
-    seasontime++
-    if (seasontime <= 10) {
-        sendData.season = "summer"
-    }
-    else if (seasontime <= 20) {
-        sendData.season = "winter"
-    }
-    else {
-        seasontime = 0
-    }
+    
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }

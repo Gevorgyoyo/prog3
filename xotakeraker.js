@@ -30,7 +30,7 @@ module.exports = class Xotakeraker extends lc{
 
     mult() {
         var empty = random(this.chooseCell(0))
-        if (empty && this.energy > 40) {
+        if (empty && this.energy > 20) {
           grassEaterEaterCount++;
             var newX = empty[0];
             var newY = empty[1];
@@ -42,15 +42,17 @@ module.exports = class Xotakeraker extends lc{
 
     move() {
         var empty = random(this.chooseCell(0))
-        this.energy -= 2;
         if (empty) {
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 3
             matrix[this.y][this.x] = 0
-
             this.x = newX
             this.y = newY
+               this.energy --;
+        }
+        if(this.enenrgy<=0){
+            this.die()
         }
     }
 
@@ -60,7 +62,7 @@ module.exports = class Xotakeraker extends lc{
 
         if (newCell) {
 
-            this.energy++;
+            this.energy+=3;
             let x = newCell[0];
             let y = newCell[1];
 
@@ -75,11 +77,10 @@ module.exports = class Xotakeraker extends lc{
             }
             this.x = x;
             this.y = y;
-
+                }
             if (this.energy >= 13) {
                 this.mult();
             }
-        }
         else {
             this.move()
         }

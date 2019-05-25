@@ -3,7 +3,7 @@ function setup() {
 	var side = 35;
 	var matrix = []
 	//! Getting DOM objects (HTML elements)
-	let grassCounting = document.getElementById('grassCounting');
+	let grassCount = document.getElementById('grassCount');
 	let grassEaterCount = document.getElementById('grassEaterCount');
 	let grassEaterEaterCount = document.getElementById('grassEaterEaterCount');
 	let towerCount = document.getElementById('towerCount');
@@ -16,7 +16,7 @@ function setup() {
 		matrix = data.matrix;
 		season = data.season
 		//!writing character number in canvas at the moment in td tags
-		grassCounting.innerText = data.grassCounter
+		grassCount.innerText = data.grassCounter
 		grassEaterCount.innerText = data.grassEaterCounter
 		grassEaterEaterCount.innerText = data.grassEaterEaterCounter
 		towerCount.innerText = data.towerCounter
