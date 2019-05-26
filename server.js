@@ -196,16 +196,5 @@ function clearMatrix() {
 io.on('connection', function (socket) {
     socket.on("clearMatrix", clearMatrix);
 });
-io.on('connection', function (socket) {
-    socket.on("generateMatrix", function () {
-        grassArr = [];
-        xotakerArr = [];
-        xotakerakerArr = [];
-        tower = [];
-        golemArr = [];
-        matrixGenerator(20, 100, 90, 90, 30, 20);
-        creatingObjects();
 
-    })
-});
 
