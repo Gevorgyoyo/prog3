@@ -7,6 +7,7 @@ xotakerArr = [];
 xotakerakerArr = [];
 tower = [];
 golemArr = [];
+matrix = []
 //!statistics Arrays
 grassCount = 0
 grassEaterCount = 0
@@ -21,33 +22,33 @@ golemCount = 0
 // //! Creating MATRIX -- START
 let random = require('./random');
 function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, golemArr) {
-    for (let i = 0; i < matrixSize; i++) {
+    for (let i = 0; i <=matrixSize; i++) {
         matrix[i] = [];
-        for (let o = 0; o < matrixSize; o++) {
+        for (let o = 0; o <= matrixSize; o++) {
             matrix[i][o] = 0;
         }
     }
-    for (let i = 0; i < grass; i++) {
+    for (let i = 0; i <= grass; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 1;
     }
-    for (let i = 0; i < grassEater; i++) {
+    for (let i = 0; i <= grassEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 2;
     }
-    for (let i = 0; i < grassEaterEater; i++) {
+    for (let i = 0; i <= grassEaterEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 3;
     }
-    for (let i = 0; i < tower; i++) {
+    for (let i = 0; i <= tower; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 4;
     }
-    for (let i = 0; i < golemArr; i++) {
+    for (let i = 0; i <= golemArr; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 5;
@@ -193,7 +194,18 @@ function clearMatrix() {
     matrixGenerator(20, 0, 0, 0, 0, 0)
 }
 io.on('connection', function (socket) {
-    socket.on("clearMatrix", clearMatrix)
+    socket.on("clearMatrix", clearMatrix);
 });
+io.on('connection', function (socket) {
+    socket.on("generateMatrix", function () {
+        grassArr = [];
+        xotakerArr = [];
+        xotakerakerArr = [];
+        tower = [];
+        golemArr = [];
+        matrixGenerator(20, 100, 90, 90, 30, 20);
+        creatingObjects();
 
+    })
+});
 
