@@ -3,6 +3,10 @@ var socket = io();
 function clearMatrix(){
 	socket.emit("clearMatrix");
 }
+
+function generateMatrix(){
+	socket.emit("generateMatrix");
+}
 function setup() {
 
 	var side = 35;
