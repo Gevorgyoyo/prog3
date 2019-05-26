@@ -1,7 +1,12 @@
+var socket = io();
+
+function clearMatrix(){
+	socket.emit("clearMatrix");
+}
 function setup() {
-	var socket = io();
+
 	var side = 35;
-	var matrix = []
+	var matrix = [];
 	//! Getting DOM objects (HTML elements)
 	let grassCount = document.getElementById('grassCount');
 	let grassEaterCount = document.getElementById('grassEaterCount');

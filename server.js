@@ -2,7 +2,6 @@
 //!Season counter
 seasontime = 0
 //! Main Arrays
-matrix = [];
 grassArr = [];
 xotakerArr = [];
 xotakerakerArr = [];
@@ -14,12 +13,12 @@ grassEaterCount = 0
 grassEaterEaterCount = 0
 towerCount = 0
 golemCount = 0
-abc=0
+
 //! Setting global arrays  -- END
 
 
 
-//! Creating MATRIX -- START
+// //! Creating MATRIX -- START
 let random = require('./random');
 function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, golemArr) {
     for (let i = 0; i < matrixSize; i++) {
@@ -29,7 +28,7 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         }
     }
     for (let i = 0; i < grass; i++) {
-        let customX = Math.floor(random(matrixSize)); 
+        let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 1;
     }
@@ -54,7 +53,7 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, 
         matrix[customY][customX] = 5;
     }
 }
-matrixGenerator(20, 100, 100, 70, 20, 20);
+matrixGenerator(20, 100, 90, 90, 30, 20);
 //! Creating MATRIX -- END
 
 
@@ -89,7 +88,7 @@ function creatingObjects() {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y));
                 grassCount++
-                abc++
+
             }
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
@@ -115,6 +114,7 @@ creatingObjects();
 
 //!Game function
 function game() {
+
     //! Object to send
     sendData = {
         matrix: matrix,
@@ -126,7 +126,7 @@ function game() {
         golemCounter: golemCount
     }
 
-console.log(abc)
+
     //!Season---START
     seasontime++
     if (seasontime <= 10) {
@@ -140,7 +140,7 @@ console.log(abc)
     }
     //!Season---END
 
-    
+
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mult();
@@ -169,9 +169,31 @@ console.log(abc)
             golemArr[i].live();
         }
     }
-    
+
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
-}
+    //!listen "clear"command and clear matrix
 
+
+}
 setInterval(game, 100)
+function clearMatrix() {
+    seasontime = 0
+    matrix = [];
+    grassArr = [];
+    xotakerArr = [];
+    xotakerakerArr = [];
+    tower = [];
+    golemArr = [];
+    grassCount = 0
+    grassEaterCount = 0
+    grassEaterEaterCount = 0
+    towerCount = 0
+    golemCount = 0
+    matrixGenerator(20, 0, 0, 0, 0, 0)
+}
+io.on('connection', function (socket) {
+    socket.on("clearMatrix", clearMatrix)
+});
+
+
