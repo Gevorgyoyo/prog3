@@ -157,7 +157,7 @@ module.exports = class Golem extends lc{
             this.eat()
         }
         else{
-            if(this.eaten<500){
+            if(this.eaten<300){
                 this.move()
                 this.eat()
             }

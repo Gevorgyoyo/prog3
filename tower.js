@@ -125,10 +125,9 @@ module.exports = class Tower extends lc {
             var yourchance = random(chance)
             if (yourchance == 1) {
                 matrix[this.y][this.x] = 0;
-                
-                for (let i in tower) {
-                    if (tower[i].x == this.x && tower[i].y == this.y) {
-                        tower.splice(i, 1)
+                for (let i in towerArr) {
+                    if (towerArr[i].x == this.x && towerArr[i].y == this.y) {
+                        towerArr.splice(i, 1)
                     }
                 }
             }

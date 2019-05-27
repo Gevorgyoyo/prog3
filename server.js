@@ -5,7 +5,7 @@ seasontime = 0
 grassArr = [];
 xotakerArr = [];
 xotakerakerArr = [];
-tower = [];
+towerArr = [];
 golemArr = [];
 matrix = []
 //!statistics Arrays
@@ -22,33 +22,33 @@ golemCount = 0
 // //! Creating MATRIX -- START
 let random = require('./random');
 function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, tower, golemArr) {
-    for (let i = 0; i <=matrixSize; i++) {
+    for (let i = 0; i <= matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o <= matrixSize; o++) {
             matrix[i][o] = 0;
         }
     }
-    for (let i = 0; i <= grass; i++) {
+    for (let i = 0; i < grass; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 1;
     }
-    for (let i = 0; i <= grassEater; i++) {
+    for (let i = 0; i < grassEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 2;
     }
-    for (let i = 0; i <= grassEaterEater; i++) {
+    for (let i = 0; i < grassEaterEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 3;
     }
-    for (let i = 0; i <= tower; i++) {
+    for (let i = 0; i < tower; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 4;
     }
-    for (let i = 0; i <= golemArr; i++) {
+    for (let i = 0; i < golemArr; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 5;
@@ -94,18 +94,22 @@ function creatingObjects() {
             else if (matrix[y][x] == 2) {
                 xotakerArr.push(new Xotaker(x, y));
                 grassEaterCount++
+
             }
             else if (matrix[y][x] == 3) {
                 xotakerakerArr.push(new Xotakeraker(x, y));
                 grassEaterEaterCount++
+
             }
             else if (matrix[y][x] == 4) {
-                tower.push(new Tower(x, y));
+                towerArr.push(new Tower(x, y));
                 towerCount++
+
             }
             else if (matrix[y][x] == 5) {
                 golemArr.push(new Golem(x, y));
                 golemCount++
+
             }
         }
     }
@@ -113,7 +117,7 @@ function creatingObjects() {
 creatingObjects();
 
 
-//!Game function
+//!Game function---START
 function game() {
 
     //! Object to send
@@ -126,8 +130,6 @@ function game() {
         towerCounter: towerCount,
         golemCounter: golemCount
     }
-
-
     //!Season---START
     seasontime++
     if (seasontime <= 10) {
@@ -135,13 +137,14 @@ function game() {
     }
     else if (seasontime <= 20) {
         sendData.season = "winter"
+
     }
     else {
         seasontime = 0
     }
     //!Season---END
 
-
+    //!Making characters live---START
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].mult();
@@ -159,9 +162,9 @@ function game() {
         }
 
     }
-    if (tower[0] !== undefined) {
-        for (var i in tower) {
-            tower[i].live();
+    if (towerArr[0] !== undefined) {
+        for (var i in towerArr) {
+            towerArr[i].live();
         }
 
     }
@@ -169,43 +172,44 @@ function game() {
         for (var i in golemArr) {
             golemArr[i].live();
         }
+        //!Making characters live---END
     }
-
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
-    //!listen "clear"command and clear matrix
-
-
+    
 }
+//!Game function---END
+
+
+//!Looping game() func. every 0.1 seconds
 setInterval(game, 100)
-function clearMatrix() {
-    seasontime = 0
-    matrix = [];
-    grassArr = [];
-    xotakerArr = [];
-    xotakerakerArr = [];
-    tower = [];
-    golemArr = [];
-    grassCount = 0
-    grassEaterCount = 0
-    grassEaterEaterCount = 0
-    towerCount = 0
-    golemCount = 0
-    matrixGenerator(20, 0, 0, 0, 0, 0)
-}
-io.on('connection', function (socket) {
-    socket.on("clearMatrix", clearMatrix);
-});
 
+
+//!listening sockets from client and clearing or generating matrix
 io.on('connection', function (socket) {
+    socket.on("clearMatrix", function () {
+        seasontime = 0
+        matrix = [];
+        grassArr = [];
+        xotakerArr = [];
+        xotakerakerArr = [];
+        towerArr = [];
+        golemArr = [];
+        grassCount = 0
+        grassEaterCount = 0
+        grassEaterEaterCount = 0
+        towerCount = 0
+        golemCount = 0
+        matrixGenerator(20, 0, 0, 0, 0, 0)
+    });
     socket.on("generateMatrix", function () {
         grassArr = [];
         xotakerArr = [];
         xotakerakerArr = [];
-        tower = [];
+        towerArr = [];
         golemArr = [];
         matrixGenerator(20, 100, 90, 90, 30, 20);
         creatingObjects();
-
-    })
+    });
 });
+

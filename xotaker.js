@@ -34,7 +34,7 @@ module.exports = class Xotaker extends lc {
             matrix[y][x] = 2;
             let xotaker = new Xotaker(x, y);
             xotakerArr.push(xotaker);
-            this.life = 5;
+            this.life = 10;
         }
     }
     eat() {
